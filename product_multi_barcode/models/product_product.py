@@ -34,10 +34,10 @@ class ProductProduct(models.Model):
         barcodes_to_unlink = self.env["product.barcode"]
         create_barcode_vals_list = []
         for product in self:
-            if product.barcode_ids:
-                product.barcode_ids[0].name = product.barcode
-            elif not product.barcode:
+            if not product.barcode:
                 barcodes_to_unlink |= product.barcode_ids
+            elif product.barcode_ids:
+                product.barcode_ids[0].name = product.barcode
             else:
                 create_barcode_vals_list.append(product._prepare_barcode_vals())
         if barcodes_to_unlink:
@@ -54,17 +54,25 @@ class ProductProduct(models.Model):
 
     @api.model
     def _search(self, domain, *args, **kwargs):
-        for sub_domain in list(filter(lambda x: x[0] == "barcode", domain)):
-            domain = self._get_barcode_domain(sub_domain, domain)
+        domain = self._get_barcode_search_domain_multi(domain)
         return super()._search(domain, *args, **kwargs)
 
-    def _get_barcode_domain(self, sub_domain, domain):
-        barcode_operator = sub_domain[1]
-        barcode_value = sub_domain[2]
-        domain = [
-            ("barcode_ids.name", barcode_operator, barcode_value)
-            if x[0] == "barcode" and x[2] == barcode_value
-            else x
-            for x in domain
-        ]
-        return domain
+    @api.model
+    def _get_barcode_search_domain_multi(self, domain):
+        """Search every barcode of the product instead of the main one only.
+
+        Leaves on an empty value (``barcode = False`` / ``barcode != False``)
+        keep targeting the stored main barcode: it is empty if and only if the
+        product has no barcode at all.
+        """
+        new_domain = []
+        for item in domain or []:
+            if (
+                isinstance(item, (list, tuple))
+                and len(item) == 3
+                and item[0] == "barcode"
+                and item[2]
+            ):
+                item = ("barcode_ids.name", item[1], item[2])
+            new_domain.append(item)
+        return new_domain
