@@ -76,3 +76,76 @@ class TestProductMultiBarcode(TransactionCase):
             ]
         )
         self.assertEqual(len(products), 2)
+
+    def test_search_empty_barcode(self):
+        """Empty-value conditions keep targeting the main barcode."""
+        self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode_1})]
+        products = self.product.search(
+            [
+                ("id", "in", (self.product_1 | self.product_2).ids),
+                ("barcode", "=", False),
+            ]
+        )
+        self.assertEqual(products, self.product_2)
+        products = self.product.search(
+            [
+                ("id", "in", (self.product_1 | self.product_2).ids),
+                ("barcode", "!=", False),
+            ]
+        )
+        self.assertEqual(products, self.product_1)
+
+    def test_search_secondary_barcode_in_or_and_negation(self):
+        self.product_1.barcode_ids = [
+            (0, 0, {"name": self.valid_barcode_1}),
+            (0, 0, {"name": self.valid_barcode2_1}),
+        ]
+        domain = [
+            "|",
+            ("barcode", "=", self.valid_barcode2_1),
+            ("id", "=", self.product_2.id),
+        ]
+        self.assertEqual(self.product.search(domain), self.product_1 | self.product_2)
+        domain = [
+            ("id", "in", (self.product_1 | self.product_2).ids),
+            "!",
+            ("barcode", "=", self.valid_barcode2_1),
+        ]
+        self.assertEqual(self.product.search(domain), self.product_2)
+
+    def test_search_same_value_on_other_field_is_untouched(self):
+        self.product_1.barcode = self.valid_barcode_1
+        self.product_2.default_code = self.valid_barcode_1
+        products = self.product.search(
+            [
+                ("id", "in", (self.product_1 | self.product_2).ids),
+                ("default_code", "=", self.valid_barcode_1),
+            ]
+        )
+        self.assertEqual(products, self.product_2)
+
+    def test_name_search_finds_secondary_barcode(self):
+        self.product_1.barcode_ids = [
+            (0, 0, {"name": self.valid_barcode_1}),
+            (0, 0, {"name": self.valid_barcode2_1}),
+        ]
+        found = self.product.name_search(self.valid_barcode2_1)
+        self.assertIn(self.product_1.id, [pid for pid, _name in found])
+
+    def test_native_barcode_check_with_secondary_barcode(self):
+        """A main barcode cannot reuse a secondary barcode of another product."""
+        self.product_1.barcode_ids = [
+            (0, 0, {"name": self.valid_barcode_1}),
+            (0, 0, {"name": self.valid_barcode2_1}),
+        ]
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.product_2.barcode = self.valid_barcode2_1
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.product_2.barcode = self.valid_barcode_1
+
+    def test_clear_main_barcode(self):
+        self.product_1.barcode = self.valid_barcode_1
+        self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode2_1})]
+        self.product_1.barcode = False
+        self.assertFalse(self.product_1.barcode)
+        self.assertFalse(self.product_1.barcode_ids)
