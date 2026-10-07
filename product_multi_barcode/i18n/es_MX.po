@@ -1,39 +1,35 @@
 # Translation of Odoo Server.
 # This file contains the translation of the following modules:
-# * product_multi_ean
+# 	* product_multi_barcode
 #
-# Translators:
 msgid ""
 msgstr ""
-"Project-Id-Version: stock-logistics-barcode (8.0)\n"
+"Project-Id-Version: Odoo Server 20.0\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2016-09-18 10:53+0000\n"
-"PO-Revision-Date: 2016-04-28 13:01+0000\n"
-"Last-Translator: <>\n"
-"Language-Team: Spanish (Mexico) (http://www.transifex.com/oca/OCA-stock-"
-"logistics-barcode-8-0/language/es_MX/)\n"
-"Language: es_MX\n"
+"Last-Translator: \n"
+"Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: \n"
+"Language: es_MX\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__name
 msgid "Barcode"
-msgstr ""
+msgstr "Código de barras"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode_ids
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__barcode_ids
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
 msgid "Barcodes"
-msgstr ""
+msgstr "Códigos de barras"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__company_id
 msgid "Company"
-msgstr ""
+msgstr "Empresa"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
@@ -43,58 +39,67 @@ msgstr "Creado por"
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_date
 msgid "Created on"
-msgstr "Creado en"
+msgstr "Creado el"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__display_name
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__display_name
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__display_name
 msgid "Display Name"
-msgstr "Nombre desplegado"
+msgstr "Nombre en pantalla"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__id
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__id
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__id
 msgid "ID"
 msgstr "ID"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_barcode
 msgid "Individual item in a product's barcode list"
-msgstr ""
+msgstr "Elemento individual en la lista de códigos de barras de un producto"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
 msgid "International Article Number used for product identification."
-msgstr ""
+msgstr "Número internacional de artículo utilizado para identificar el producto."
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__write_uid
 msgid "Last Updated by"
-msgstr "Ultima actualizacion por"
+msgstr "Última actualización por"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__write_date
 msgid "Last Updated on"
-msgstr "Ultima actualización realizada"
+msgstr "Última actualización el"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode
 msgid "Main barcode"
-msgstr ""
+msgstr "Código de barras principal"
+
+#. module: product_multi_barcode
+#: model:ir.module.module,shortdesc:base.module_product_multi_barcode
+msgid "Multiple barcodes on products"
+msgstr "Múltiples códigos de barras en productos"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_template
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_id
 msgid "Product"
-msgstr ""
+msgstr "Producto"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_tmpl_id
 msgid "Product Tmpl"
-msgstr ""
+msgstr "Plantilla de producto"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "Variante del producto"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__sequence
@@ -104,10 +109,5 @@ msgstr "Secuencia"
 #. module: product_multi_barcode
 #. odoo-python
 #: code:addons/product_multi_barcode/models/product_barcode.py:0
-msgid ""
-"The Barcode \"%(barcode_name)s\" already exists for product "
-"\"%(product_name)s\" in the company %(company_name)s"
-msgstr ""
-
-#~ msgid "Last Modified on"
-#~ msgstr "Ultima modificacion realizada"
+msgid "The Barcode \"%(barcode_name)s\" already exists for product \"%(product_name)s\" in the company %(company_name)s"
+msgstr "El código de barras \"%(barcode_name)s\" ya existe para el producto \"%(product_name)s\" en la empresa %(company_name)s"
