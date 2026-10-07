@@ -118,3 +118,10 @@ class TestProductMultiBarcode(TransactionCase):
             self.product_2.barcode = self.valid_barcode2_1
         with self.assertRaises(ValidationError), self.cr.savepoint():
             self.product_2.barcode = self.valid_barcode_1
+
+    def test_clear_main_barcode(self):
+        self.product_1.barcode = self.valid_barcode_1
+        self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode2_1})]
+        self.product_1.barcode = False
+        self.assertFalse(self.product_1.barcode)
+        self.assertFalse(self.product_1.barcode_ids)
