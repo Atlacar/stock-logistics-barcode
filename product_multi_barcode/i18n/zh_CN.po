@@ -10,8 +10,7 @@ msgstr ""
 "POT-Creation-Date: 2017-02-19 03:46+0000\n"
 "PO-Revision-Date: 2019-10-18 19:32+0000\n"
 "Last-Translator: 黎伟杰 <674416404@qq.com>\n"
-"Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-stock-"
-"logistics-barcode-8-0/language/zh_CN/)\n"
+"Language-Team: Chinese (China) (http://www.transifex.com/oca/OCA-stock-logistics-barcode-8-0/language/zh_CN/)\n"
 "Language: zh_CN\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -22,19 +21,19 @@ msgstr ""
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__name
 msgid "Barcode"
-msgstr ""
+msgstr "条形码"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode_ids
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__barcode_ids
 #: model_terms:ir.ui.view,arch_db:product_multi_barcode.product_search_form_view_multi_barcodes
 msgid "Barcodes"
-msgstr ""
+msgstr "条形码"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__company_id
 msgid "Company"
-msgstr ""
+msgstr "公司"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__create_uid
@@ -48,18 +47,22 @@ msgstr "创建时间"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__display_name
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__display_name
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__display_name
 msgid "Display Name"
 msgstr "显示名称"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__id
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__id
+#: model:ir.model.fields,field_description:product_multi_barcode.field_product_template__id
 msgid "ID"
 msgstr "ID"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_barcode
 msgid "Individual item in a product's barcode list"
-msgstr ""
+msgstr "产品条形码列表中的单个条目"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,help:product_multi_barcode.field_product_product__barcode
@@ -79,7 +82,7 @@ msgstr "上次更新日期"
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_product__barcode
 msgid "Main barcode"
-msgstr ""
+msgstr "主条形码"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_template
@@ -89,14 +92,13 @@ msgstr "产品"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__product_tmpl_id
-#, fuzzy
 msgid "Product Tmpl"
-msgstr "产品"
+msgstr "产品模板"
 
 #. module: product_multi_barcode
 #: model:ir.model,name:product_multi_barcode.model_product_product
 msgid "Product Variant"
-msgstr ""
+msgstr "产品变体"
 
 #. module: product_multi_barcode
 #: model:ir.model.fields,field_description:product_multi_barcode.field_product_barcode__sequence
@@ -109,29 +111,4 @@ msgstr "序号"
 msgid ""
 "The Barcode \"%(barcode_name)s\" already exists for product "
 "\"%(product_name)s\" in the company %(company_name)s"
-msgstr ""
-
-#~ msgid "Last Modified on"
-#~ msgstr "最后修改时间"
-
-#, fuzzy
-#~ msgid "Product Template"
-#~ msgstr "产品"
-
-#, fuzzy, python-format
-#~ msgid "The Barcode \"%s\" already exists for product \"%s\""
-#~ msgstr "EAN13 条码\"%s\" 产品 \"%s\"已存在"
-
-#~ msgid "EAN13"
-#~ msgstr "EAN13"
-
-#~ msgid "List of EAN13 for a product."
-#~ msgstr "产品的EAN13列表。"
-
-#~ msgid "Main EAN13"
-#~ msgstr "EAN13"
-
-#~ msgid ""
-#~ "You provided an invalid \"EAN13 Barcode\" reference. You may use the "
-#~ "\"Internal Reference\" field instead."
-#~ msgstr "您提供了无效的“ EAN13条形码”参考。您可以改为使用“内部参考”字段。"
+msgstr "条形码“%(barcode_name)s”已存在于公司 %(company_name)s 的产品“%(product_name)s”中"
