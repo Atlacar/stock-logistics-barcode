@@ -3,6 +3,7 @@
 # License AGPL-3.0 or later (http://www.gnu.org/licenses/agpl.html).
 
 from odoo.exceptions import ValidationError
+from odoo.fields import Domain
 from odoo.tests import TransactionCase, tagged
 
 from ..hooks import post_init_hook
@@ -76,3 +77,44 @@ class TestProductMultiBarcode(TransactionCase):
             ]
         )
         self.assertEqual(len(products), 2)
+
+    def test_search_empty_barcode(self):
+        """Empty-value conditions keep targeting the main barcode."""
+        self.product_1.barcode_ids = [(0, 0, {"name": self.valid_barcode_1})]
+        products = self.product.search(
+            [
+                ("id", "in", (self.product_1 | self.product_2).ids),
+                ("barcode", "=", False),
+            ]
+        )
+        self.assertEqual(products, self.product_2)
+        products = self.product.search(
+            [
+                ("id", "in", (self.product_1 | self.product_2).ids),
+                ("barcode", "!=", False),
+            ]
+        )
+        self.assertEqual(products, self.product_1)
+
+    def test_search_domain_object(self):
+        self.product_1.barcode_ids = [
+            (0, 0, {"name": self.valid_barcode_1}),
+            (0, 0, {"name": self.valid_barcode2_1}),
+        ]
+        domain = Domain("barcode", "=", self.valid_barcode2_1) | Domain(
+            "id", "=", self.product_2.id
+        )
+        self.assertEqual(
+            self.product.search(domain), self.product_1 | self.product_2
+        )
+
+    def test_native_barcode_check_with_secondary_barcode(self):
+        """A main barcode cannot reuse a secondary barcode of another product."""
+        self.product_1.barcode_ids = [
+            (0, 0, {"name": self.valid_barcode_1}),
+            (0, 0, {"name": self.valid_barcode2_1}),
+        ]
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.product_2.barcode = self.valid_barcode2_1
+        with self.assertRaises(ValidationError), self.cr.savepoint():
+            self.product_2.barcode = self.valid_barcode_1

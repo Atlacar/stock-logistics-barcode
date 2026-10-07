@@ -60,7 +60,12 @@ class ProductProduct(models.Model):
 
     @api.model
     def _get_barcode_condition(self, condition):
-        """Search every barcode of the product instead of the main one only."""
-        if condition.field_expr == "barcode":
+        """Search every barcode of the product instead of the main one only.
+
+        Conditions on an empty value (``barcode = False`` / ``barcode != False``)
+        keep targeting the stored main barcode: it is empty if and only if the
+        product has no barcode at all.
+        """
+        if condition.field_expr == "barcode" and condition.value:
             return Domain("barcode_ids.name", condition.operator, condition.value)
         return condition
